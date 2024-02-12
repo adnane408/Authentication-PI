@@ -27,10 +27,20 @@ public abstract class Carte {
     @OneToMany
     private Collection<Operation> operations;
 
+
+
+
+
+
     public Collection<Operation> getTracabilite() {
             return operations;
     }
 
-    public void addOperation(Operation operation)
+    public void addOperation(Operation operation){
+        this.operations.add(operation);
+    }
 
+    public Carte(Entreprise entreprise) {
+        this.entreprise = entreprise;
+    }
 }

@@ -18,5 +18,8 @@ public class CarteNominative extends Carte{
     @ManyToOne
     private Employe employe;
 
-
+    public CarteNominative(Entreprise entreprise, Employe employe) {
+        super(entreprise);
+        this.employe = employe;
+    }
 }

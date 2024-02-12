@@ -42,7 +42,7 @@ public class CarteServiceImp implements CarteService{
     public void addOperationToCard(Long id, Operation operation) {
         Carte carte=getCard(id).get();
         this.operationRepository.save(operation);
-        carte.
+        carte.addOperation(operation);
 
     }
 }

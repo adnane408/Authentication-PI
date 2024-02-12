@@ -24,4 +24,8 @@ public class Entreprise {
     @OneToMany(mappedBy = "entreprise")
     private List<Carte> cartes;
 
+    public Entreprise(String nom){
+        this.nom=nom;
+    }
+
 }
