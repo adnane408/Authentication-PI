@@ -35,6 +35,7 @@ public class WebConfiguration {
         http.sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.headers(headers -> headers.disable());
         http.formLogin(f -> f.permitAll());
+        http.httpBasic(Customizer.withDefaults());
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers("api/users", "api/user/save").hasRole("ADMIN").anyRequest().authenticated());
         http.userDetailsService(userDetailServiceImpl);
         http.addFilter(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration)));
