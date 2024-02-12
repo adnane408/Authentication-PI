@@ -31,4 +31,6 @@ public abstract class Carte {
             return operations;
     }
 
+    public void addOperation(Operation operation)
+
 }
