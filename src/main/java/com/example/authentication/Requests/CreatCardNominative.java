@@ -2,7 +2,9 @@ package com.example.authentication.Requests;
 
 import com.example.authentication.model.Entreprise;
 import com.example.authentication.model.Sex;
+import lombok.Data;
 
+@Data
 public class CreatCardNominative {
     private String identite;
     private String nom;
