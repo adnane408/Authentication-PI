@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface EntrepriseRepository extends JpaRepository<Entreprise,Long> {
     public Entreprise findByNom(String nom);
+    public Entreprise findByUsername(String username);
 }

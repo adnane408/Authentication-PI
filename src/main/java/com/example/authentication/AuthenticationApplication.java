@@ -35,7 +35,7 @@ public class AuthenticationApplication {
             userService.saveUser("user2","1234");
             userService.addRoletoUser("user1","USER");
             userService.addRoletoUser("user2","ADMIN");
-            Entreprise entreprise=new Entreprise("sarl");
+            Entreprise entreprise=new Entreprise("sarl","user1");
             Employe employe=new Employe("adnane","f669214","0639799920",Employe.ddn("1990-01-15"), Sex.HOMME,entreprise);
             Employe employe2=new Employe("adnane2","f6692142","06397999202",Employe.ddn("1990-01-15"), Sex.HOMME,entreprise);
             CarteNominative carteNominative=new CarteNominative(entreprise,employe);

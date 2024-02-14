@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class CreatCardNominative {
     private String identite;
-    private boolean isNominative;
     private String nom;
     private String ddn;
     private String tele;

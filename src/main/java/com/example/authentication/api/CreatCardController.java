@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,28 +40,39 @@ public class CreatCardController {
         List<Carte> carteList = new ArrayList<>();
 
         for (CreatCardNominative creatCardNominative : cardNominativeList) {
-            Employe employe;
-            Entreprise entreprise;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            if (entrepriseRepository.findByNom(creatCardNominative.getEntreprise()) == null) {
-                System.out.println("null");
-                return ResponseEntity.notFound().build();
+            // Check if the user is authenticated
+            String username;
+            if (authentication != null && authentication.isAuthenticated()) {
+                // Retrieve the username from the authentication object
+                username = authentication.getName();
 
-            } else {
-                entreprise = entrepriseRepository.findByNom(creatCardNominative.getEntreprise());
+                // You can now use the 'username' variable as needed
+                System.out.println("Username: " + username);
+                Employe employe;
+                Entreprise entreprise;
+
+                if (entrepriseRepository.findByUsername(username)==null) {
+                    System.out.println("test");
+                    return ResponseEntity.notFound().build();
+
+                } else{
+                    entreprise = entrepriseRepository.findByUsername(username);
+                }
+
+                if (employeRepository.findByIdentite(creatCardNominative.getIdentite()) != null) {
+                    employe = employeRepository.findByIdentite(creatCardNominative.getIdentite());
+                } else {
+                    employe = new Employe(creatCardNominative.getNom(), creatCardNominative.getTele(), creatCardNominative.getIdentite(), Employe.ddn(creatCardNominative.getDdn()), creatCardNominative.getSex(), entreprise);
+                    employeRepository.save(employe);
+                }
+                CarteNominative carteNominative = new CarteNominative(entreprise, employe);
+                carteNomRepository.save(carteNominative);
+                carteList.add(carteNominative);
             }
 
-            if (employeRepository.findByIdentite(creatCardNominative.getIdentite()) != null) {
-                employe = employeRepository.findByIdentite(creatCardNominative.getIdentite());
-            } else {
-                employe = new Employe(creatCardNominative.getNom(), creatCardNominative.getTele(), creatCardNominative.getIdentite(), Employe.ddn(creatCardNominative.getDdn()), creatCardNominative.getSex(), entreprise);
-                employeRepository.save(employe);
             }
-            CarteNominative carteNominative = new CarteNominative(entreprise, employe);
-            carteNomRepository.save(carteNominative);
-            carteList.add(carteNominative);
-        }
-
         return ResponseEntity.ok().build();
     }
     @GetMapping("/{identite}/cartes")

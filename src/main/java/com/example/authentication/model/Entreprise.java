@@ -23,6 +23,7 @@ public class Entreprise {
     private Long id;
     @Column(unique = true)
     private String nom;
+    private String username;
     @OneToMany(mappedBy = "entreprise")
     @JsonBackReference
     private List<Carte> cartes=new ArrayList<>();
@@ -32,6 +33,11 @@ public class Entreprise {
 
     public Entreprise(String nom){
         this.nom=nom;
+    }
+
+    public Entreprise(String nom, String username) {
+        this.nom = nom;
+        this.username = username;
     }
 
     public Long getId() {
@@ -66,6 +72,13 @@ public class Entreprise {
         this.employes = employes;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void addEmploye(Employe employe){
         this.employes.add(employe);
