@@ -36,7 +36,7 @@ public class WebConfiguration {
         http.headers(headers -> headers.disable());
         http.formLogin(f -> f.permitAll());
         http.httpBasic(Customizer.withDefaults());
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("api/users", "api/user/save").hasRole("ADMIN").anyRequest().permitAll());
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
         http.userDetailsService(userDetailServiceImpl);
         http.addFilter(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration)));
         http.addFilterBefore(new JwtAuthorizationFilter(),UsernamePasswordAuthenticationFilter.class);

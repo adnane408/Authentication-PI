@@ -8,6 +8,7 @@ import com.example.authentication.model.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,7 +55,6 @@ public class CreatCardController {
                 employe = new Employe(creatCardNominative.getNom(), creatCardNominative.getTele(), creatCardNominative.getIdentite(), Employe.ddn(creatCardNominative.getDdn()), creatCardNominative.getSex(), entreprise);
                 employeRepository.save(employe);
             }
-
             CarteNominative carteNominative = new CarteNominative(entreprise, employe);
             carteNomRepository.save(carteNominative);
             carteList.add(carteNominative);
