@@ -29,6 +29,7 @@ public class Employe {
     @Column(unique = true)
     private String identite;
     private Date ddn;
+    @Enumerated(EnumType.STRING)
     private Sex sex;
     @OneToMany(mappedBy = "employe",fetch = FetchType.EAGER)
     private Collection<CarteNominative> cartesNominatives;
